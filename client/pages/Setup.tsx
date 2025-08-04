@@ -75,8 +75,8 @@ export default function Setup() {
                 First, make sure you have set up your Supabase environment variables:
               </p>
               <div className="bg-muted p-4 rounded-lg font-mono text-sm">
-                <div>VITE_SUPABASE_URL=https://your-project.supabase.co</div>
-                <div>VITE_SUPABASE_ANON_KEY=your-anon-key</div>
+                <div>VITE_SUPABASE_URL=https://tutoring.supabase.co</div>
+                <div>VITE_SUPABASE_ANON_KEY=your-tutoring-project-anon-key</div>
               </div>
               <Alert>
                 <AlertCircle className="h-4 w-4" />
