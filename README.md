@@ -6,9 +6,10 @@ A modern, full-stack tutoring calendar application built with React, TypeScript,
 
 - **40 AP Classes** - Complete coverage of all Advanced Placement subjects
 - **Real-time RSVP System** - Students can book tutoring sessions instantly
-- **Email Confirmations** - Automated confirmations with Google Meet links
+- **Email Confirmations** - Automated HTML email confirmations with Google Meet links
 - **Responsive Design** - Works perfectly on desktop and mobile
 - **UTC Time Support** - Consistent scheduling across time zones
+- **Duplicate Prevention** - Prevents multiple RSVPs for the same event
 
 ## 🛠️ Tech Stack
 
