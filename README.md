@@ -64,12 +64,24 @@ Visit the live application at: [Your Netlify URL]
 
 ## 🔧 Environment Variables
 
-For deployment, set these environment variables:
+For deployment, set these environment variables in your `.env` file or Netlify dashboard:
 
 ```bash
-VITE_SUPABASE_URL=https://xwcvucpsixuzdiuxcndl.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key-here
+# Supabase Configuration
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# Email Service (Resend)
+VITE_RESEND_API_KEY=re_your-resend-api-key
+VITE_FROM_EMAIL=noreply@your-domain.com
 ```
+
+### Email Setup Instructions
+
+1. **Sign up for Resend**: Go to [resend.com](https://resend.com) and create an account
+2. **Get API Key**: Generate an API key in your Resend dashboard
+3. **Verify Domain**: Add and verify your sending domain (or use resend.dev for testing)
+4. **Set Environment Variables**: Add the Resend API key and from email to your environment
 
 ## 🚀 Deployment
 
