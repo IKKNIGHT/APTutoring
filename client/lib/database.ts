@@ -1,4 +1,5 @@
 import { supabase, Class, Event, RSVP } from "./supabase";
+import { emailService } from "./email";
 
 // Classes API
 export const classesApi = {
