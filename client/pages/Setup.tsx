@@ -81,7 +81,7 @@ export default function Setup() {
               <Alert>
                 <AlertCircle className="h-4 w-4" />
                 <AlertDescription>
-                  You can find these values in your Supabase project settings under API.
+                  You can find these values in your Supabase "tutoring" project settings under API. The URL will be https://[your-project-id].supabase.co
                 </AlertDescription>
               </Alert>
             </CardContent>
