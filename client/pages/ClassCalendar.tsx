@@ -23,12 +23,22 @@ export default function ClassCalendar() {
     enabled: !!classIdNum
   });
 
-  // Fetch events for this class
-  const { data: events = [], isLoading: eventsLoading } = useQuery({
-    queryKey: ['events', classIdNum],
+  // Fetch events for this class (showing all for debugging)
+  const { data: allEvents = [], isLoading: allEventsLoading } = useQuery({
+    queryKey: ['all-events', classIdNum],
+    queryFn: () => eventsApi.getByClassId(classIdNum),
+    enabled: !!classIdNum
+  });
+
+  // Fetch upcoming events for this class
+  const { data: upcomingEvents = [], isLoading: upcomingEventsLoading } = useQuery({
+    queryKey: ['upcoming-events', classIdNum],
     queryFn: () => eventsApi.getUpcomingByClassId(classIdNum),
     enabled: !!classIdNum
   });
+
+  const events = upcomingEvents;
+  const eventsLoading = allEventsLoading || upcomingEventsLoading;
 
   const isLoading = classLoading || eventsLoading;
 
