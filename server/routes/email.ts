@@ -129,7 +129,7 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
-        subject: "AP Tutoring Session Confirmation",
+        subject: `AP Tutoring Session Confirmation ${event.id}`,
         html: emailHtml,
       }),
     });
