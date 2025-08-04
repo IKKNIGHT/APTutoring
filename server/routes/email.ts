@@ -134,10 +134,20 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
     if (!response.ok) {
       const errorData = await response.json();
       console.error('Resend API error:', errorData);
-      return res.status(500).json({ 
-        success: false, 
+
+      // Handle specific Resend errors
+      if (response.status === 403 && errorData.error?.includes('testing emails')) {
+        return res.status(200).json({
+          success: false,
+          message: 'Email service is in testing mode. Only the account owner can receive emails.',
+          error: 'resend_testing_mode'
+        });
+      }
+
+      return res.status(500).json({
+        success: false,
         message: 'Failed to send email',
-        error: errorData 
+        error: errorData
       });
     }
 
