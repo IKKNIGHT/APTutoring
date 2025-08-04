@@ -111,6 +111,29 @@ export default function ClassCalendar() {
           </p>
         </div>
 
+        {/* Debug Information */}
+        {process.env.NODE_ENV === 'development' && (
+          <Card className="mb-4 bg-yellow-50 border-yellow-200">
+            <CardHeader>
+              <CardTitle className="text-sm text-yellow-800">Debug Info</CardTitle>
+            </CardHeader>
+            <CardContent className="text-sm">
+              <p>Class ID: {classIdNum}</p>
+              <p>All Events: {allEvents.length}</p>
+              <p>Upcoming Events: {events.length}</p>
+              <p>Current UTC Time: {new Date().toISOString()}</p>
+              {allEvents.length > 0 && (
+                <details className="mt-2">
+                  <summary className="cursor-pointer">All Events in DB</summary>
+                  <pre className="mt-2 text-xs bg-white p-2 rounded">
+                    {JSON.stringify(allEvents, null, 2)}
+                  </pre>
+                </details>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
         {/* Events Grid */}
         {events.length === 0 ? (
           <Card className="max-w-2xl mx-auto">
@@ -124,6 +147,11 @@ export default function ClassCalendar() {
               <p className="text-sm text-muted-foreground">
                 New sessions are added regularly. Check back soon or contact us to request a session.
               </p>
+              {allEvents.length > 0 && (
+                <p className="text-sm text-orange-600">
+                  Note: There are {allEvents.length} total events in the database, but none are upcoming.
+                </p>
+              )}
             </CardContent>
           </Card>
         ) : (
