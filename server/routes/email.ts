@@ -9,11 +9,13 @@ const emailRequestSchema = z.object({
     id: z.number(),
     datetime: z.string(),
     description: z.string(),
-    class: z.object({
-      name: z.string(),
-      meet_link: z.string()
-    }).optional()
-  })
+    class: z
+      .object({
+        name: z.string(),
+        meet_link: z.string(),
+      })
+      .optional(),
+  }),
 });
 
 export const sendRSVPEmail: RequestHandler = async (req, res) => {
@@ -21,32 +23,37 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
     // Validate request body
     const { toEmail, studentName, event } = emailRequestSchema.parse(req.body);
 
-    const resendApiKey = process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY;
-    const fromEmail = process.env.FROM_EMAIL || process.env.VITE_FROM_EMAIL || 'noreply@resend.dev';
+    const resendApiKey =
+      process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY;
+    const fromEmail =
+      process.env.FROM_EMAIL ||
+      process.env.VITE_FROM_EMAIL ||
+      "noreply@resend.dev";
 
     if (!resendApiKey) {
-      console.warn('Resend API key not configured');
-      return res.status(200).json({ 
-        success: false, 
-        message: 'Email service not configured' 
+      console.warn("Resend API key not configured");
+      return res.status(200).json({
+        success: false,
+        message: "Email service not configured",
       });
     }
 
     // Format date and time
     const eventDate = new Date(event.datetime);
-    const formattedDate = eventDate.toLocaleDateString('en-US', {
-      timeZone: 'UTC',
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    const formattedDate = eventDate.toLocaleDateString("en-US", {
+      timeZone: "UTC",
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
-    const formattedTime = eventDate.toLocaleTimeString('en-US', {
-      timeZone: 'UTC',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    }) + ' UTC';
+    const formattedTime =
+      eventDate.toLocaleTimeString("en-US", {
+        timeZone: "UTC",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      }) + " UTC";
 
     // Create email HTML
     const emailHtml = `
@@ -77,14 +84,14 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
             
             <div class="details">
               <h3>📚 Session Details</h3>
-              <p><strong>Class:</strong> ${event.class?.name || 'AP Class'}</p>
+              <p><strong>Class:</strong> ${event.class?.name || "AP Class"}</p>
               <p><strong>Session:</strong> ${event.description}</p>
               <p><strong>Date:</strong> ${formattedDate}</p>
               <p><strong>Time:</strong> ${formattedTime}</p>
             </div>
             
             <div style="text-align: center;">
-              <a href="${event.class?.meet_link || '#'}" class="meet-link">
+              <a href="${event.class?.meet_link || "#"}" class="meet-link">
                 🎥 Join Google Meet
               </a>
             </div>
@@ -117,63 +124,66 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
     `;
 
     // Send email via Resend API
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${resendApiKey}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
-        subject: 'AP Tutoring Session Confirmation',
+        subject: "AP Tutoring Session Confirmation",
         html: emailHtml,
       }),
     });
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Resend API error:', errorData);
+      console.error("Resend API error:", errorData);
 
       // Handle specific Resend errors
-      if (response.status === 403 && errorData.error?.includes('testing emails')) {
+      if (
+        response.status === 403 &&
+        errorData.error?.includes("testing emails")
+      ) {
         return res.status(200).json({
           success: false,
-          message: 'Email service is in testing mode. Only the account owner can receive emails.',
-          error: 'resend_testing_mode'
+          message:
+            "Email service is in testing mode. Only the account owner can receive emails.",
+          error: "resend_testing_mode",
         });
       }
 
       return res.status(500).json({
         success: false,
-        message: 'Failed to send email',
-        error: errorData
+        message: "Failed to send email",
+        error: errorData,
       });
     }
 
     const result = await response.json();
-    console.log('Email sent successfully:', result.id);
+    console.log("Email sent successfully:", result.id);
 
-    res.json({ 
-      success: true, 
-      message: 'Email sent successfully',
-      emailId: result.id 
+    res.json({
+      success: true,
+      message: "Email sent successfully",
+      emailId: result.id,
     });
-
   } catch (error) {
-    console.error('Email service error:', error);
-    
+    console.error("Email service error:", error);
+
     if (error instanceof z.ZodError) {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Invalid request data',
-        errors: error.errors 
+      return res.status(400).json({
+        success: false,
+        message: "Invalid request data",
+        errors: error.errors,
       });
     }
 
-    res.status(500).json({ 
-      success: false, 
-      message: 'Internal server error' 
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
     });
   }
 };

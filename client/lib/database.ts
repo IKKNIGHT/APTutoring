@@ -115,7 +115,7 @@ export const rsvpsApi = {
       try {
         await emailService.sendRSVPConfirmation(email, name, event);
       } catch (emailError) {
-        console.error('Failed to send confirmation email:', emailError);
+        console.error("Failed to send confirmation email:", emailError);
         // Don't throw error - RSVP is still valid even if email fails
       }
     }
