@@ -48,10 +48,7 @@ export const eventsApi = {
 
   // Get upcoming events for a class
   async getUpcomingByClassId(classId: number): Promise<Event[]> {
-    // Use current time as ISO string (already in UTC)
     const now = new Date().toISOString();
-
-    console.log('Fetching events for class:', classId, 'after:', now);
 
     const { data, error } = await supabase
       .from('events')
@@ -63,13 +60,7 @@ export const eventsApi = {
       .gte('datetime', now)
       .order('datetime');
 
-    if (error) {
-      console.error('Error fetching events for class', classId, ':', error);
-      console.error('Error details:', JSON.stringify(error, null, 2));
-      throw error;
-    }
-
-    console.log('Found upcoming events for class', classId, ':', data);
+    if (error) throw error;
     return data || [];
   },
 
