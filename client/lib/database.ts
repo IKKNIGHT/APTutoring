@@ -66,7 +66,8 @@ export const eventsApi = {
       .order('datetime');
 
     if (error) {
-      console.error('Error fetching events for class', classId, error);
+      console.error('Error fetching events for class', classId, ':', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
       throw error;
     }
 
