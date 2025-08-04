@@ -57,6 +57,7 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
       <html>
       <head>
         <meta charset="utf-8">
+        <meta name="x-apple-disable-message-reformatting">
         <title>AP Tutoring Session Confirmation</title>
         <style>
           body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
@@ -123,6 +124,8 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
+        'X-Entity-Ref-ID': `${Date.now()}`, // Unique identifier for email
+        'Precedence': 'bulk', // Prevents threading
         Authorization: `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
       },
