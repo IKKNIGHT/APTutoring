@@ -1,11 +1,15 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://xwcvucpsixuzdiuxcndl.supabase.co';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Y3Z1Y3BzaXh1emRpdXhjbmRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzc2NDAsImV4cCI6MjA2OTkxMzY0MH0.VfiATwNXZu4mmoMz8A3mmvXY7D5TV7DpLaNgG-ph8QY';
+const supabaseUrl =
+  import.meta.env.VITE_SUPABASE_URL ||
+  "https://xwcvucpsixuzdiuxcndl.supabase.co";
+const supabaseAnonKey =
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3Y3Z1Y3BzaXh1emRpdXhjbmRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQzMzc2NDAsImV4cCI6MjA2OTkxMzY0MH0.VfiATwNXZu4mmoMz8A3mmvXY7D5TV7DpLaNgG-ph8QY";
 
 // Validate environment variables
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables');
+  console.error("Missing Supabase environment variables");
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);

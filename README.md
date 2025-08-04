@@ -21,6 +21,7 @@ A modern, full-stack tutoring calendar application built with React, TypeScript,
 ## 📊 Database Schema
 
 ### Classes Table
+
 ```sql
 - id: integer (primary key)
 - name: text (unique)
@@ -30,6 +31,7 @@ A modern, full-stack tutoring calendar application built with React, TypeScript,
 ```
 
 ### Events Table
+
 ```sql
 - id: integer (primary key)
 - class_id: integer (foreign key)
@@ -39,6 +41,7 @@ A modern, full-stack tutoring calendar application built with React, TypeScript,
 ```
 
 ### RSVPs Table
+
 ```sql
 - id: integer (primary key)
 - event_id: integer (foreign key)
@@ -88,6 +91,7 @@ The app is configured for automatic deployment on Netlify:
 ## 📧 Email Integration
 
 RSVPs trigger automated email confirmations containing:
+
 - Class name and description
 - Session date and time (UTC)
 - Google Meet link for the session

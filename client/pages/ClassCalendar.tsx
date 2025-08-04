@@ -1,41 +1,57 @@
-import { Link, useParams } from 'react-router-dom';
-import { GraduationCap, ArrowLeft, Calendar, Clock, Users, ExternalLink, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { classesApi, eventsApi, rsvpsApi } from '@/lib/database';
-import { Event } from '@/lib/supabase';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { Link, useParams } from "react-router-dom";
+import {
+  GraduationCap,
+  ArrowLeft,
+  Calendar,
+  Clock,
+  Users,
+  ExternalLink,
+  Loader2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { classesApi, eventsApi, rsvpsApi } from "@/lib/database";
+import { Event } from "@/lib/supabase";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export default function ClassCalendar() {
   const { classId } = useParams();
-  const classIdNum = parseInt(classId || '0');
+  const classIdNum = parseInt(classId || "0");
 
   // Fetch class data
   const { data: classData, isLoading: classLoading } = useQuery({
-    queryKey: ['class', classIdNum],
+    queryKey: ["class", classIdNum],
     queryFn: () => classesApi.getById(classIdNum),
-    enabled: !!classIdNum
+    enabled: !!classIdNum,
   });
 
   // Fetch events for this class (showing all for debugging)
   const { data: allEvents = [], isLoading: allEventsLoading } = useQuery({
-    queryKey: ['all-events', classIdNum],
+    queryKey: ["all-events", classIdNum],
     queryFn: () => eventsApi.getByClassId(classIdNum),
-    enabled: !!classIdNum
+    enabled: !!classIdNum,
   });
 
   // Fetch upcoming events for this class
-  const { data: upcomingEvents = [], isLoading: upcomingEventsLoading } = useQuery({
-    queryKey: ['upcoming-events', classIdNum],
-    queryFn: () => eventsApi.getUpcomingByClassId(classIdNum),
-    enabled: !!classIdNum
-  });
+  const { data: upcomingEvents = [], isLoading: upcomingEventsLoading } =
+    useQuery({
+      queryKey: ["upcoming-events", classIdNum],
+      queryFn: () => eventsApi.getUpcomingByClassId(classIdNum),
+      enabled: !!classIdNum,
+    });
 
   const events = upcomingEvents;
   const eventsLoading = allEventsLoading || upcomingEventsLoading;
@@ -50,7 +66,9 @@ export default function ClassCalendar() {
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
               <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-              <p className="text-muted-foreground">Loading class information...</p>
+              <p className="text-muted-foreground">
+                Loading class information...
+              </p>
             </div>
           </div>
         </main>
@@ -65,7 +83,9 @@ export default function ClassCalendar() {
         <main className="container mx-auto px-4 py-8">
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
-              <CardTitle className="text-center text-destructive">Class Not Found</CardTitle>
+              <CardTitle className="text-center text-destructive">
+                Class Not Found
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <p className="text-muted-foreground mb-4">
@@ -84,7 +104,7 @@ export default function ClassCalendar() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-accent/10">
       <Header />
-      
+
       <main className="container mx-auto px-4 py-8">
         {/* Back Navigation */}
         <div className="mb-6">
@@ -99,7 +119,9 @@ export default function ClassCalendar() {
         {/* Class Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <h1 className="text-4xl font-bold text-foreground">{classData.name}</h1>
+            <h1 className="text-4xl font-bold text-foreground">
+              {classData.name}
+            </h1>
             {classData.category && (
               <Badge variant="secondary" className="text-sm">
                 {classData.category}
@@ -111,24 +133,27 @@ export default function ClassCalendar() {
           </p>
         </div>
 
-
-
         {/* Events Grid */}
         {events.length === 0 ? (
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
-              <CardTitle className="text-center">No Upcoming Sessions</CardTitle>
+              <CardTitle className="text-center">
+                No Upcoming Sessions
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-center space-y-4">
               <p className="text-muted-foreground">
-                There are currently no upcoming tutoring sessions scheduled for {classData.name}.
+                There are currently no upcoming tutoring sessions scheduled for{" "}
+                {classData.name}.
               </p>
               <p className="text-sm text-muted-foreground">
-                New sessions are added regularly. Check back soon or contact us to request a session.
+                New sessions are added regularly. Check back soon or contact us
+                to request a session.
               </p>
               {allEvents.length > 0 && (
                 <p className="text-sm text-orange-600">
-                  Note: There are {allEvents.length} total events in the database, but none are upcoming.
+                  Note: There are {allEvents.length} total events in the
+                  database, but none are upcoming.
                 </p>
               )}
             </CardContent>
@@ -152,11 +177,23 @@ function Header() {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <GraduationCap className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold text-foreground">AP Tutoring Hub</span>
+            <span className="text-2xl font-bold text-foreground">
+              AP Tutoring Hub
+            </span>
           </Link>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-            <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors">Classes</Link>
+            <Link
+              to="/"
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Home
+            </Link>
+            <Link
+              to="/dashboard"
+              className="text-foreground hover:text-primary transition-colors"
+            >
+              Classes
+            </Link>
           </nav>
         </div>
       </div>
@@ -166,72 +203,76 @@ function Header() {
 
 function EventCard({ event }: { event: Event }) {
   const [rsvpModalOpen, setRsvpModalOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const queryClient = useQueryClient();
 
   // Check if user already RSVP'd
   const { data: hasRsvped = false } = useQuery({
-    queryKey: ['rsvp-check', event.id, email],
+    queryKey: ["rsvp-check", event.id, email],
     queryFn: () => rsvpsApi.checkExisting(event.id, email),
-    enabled: !!email && email.includes('@')
+    enabled: !!email && email.includes("@"),
   });
 
   // RSVP mutation
   const rsvpMutation = useMutation({
     mutationFn: () => rsvpsApi.create(event.id, name, email),
     onSuccess: () => {
-      toast.success('RSVP confirmed! Check your email for details.');
+      toast.success("RSVP confirmed! Check your email for details.");
       setRsvpModalOpen(false);
-      setName('');
-      setEmail('');
+      setName("");
+      setEmail("");
       // Refresh the RSVP check
-      queryClient.invalidateQueries({ queryKey: ['rsvp-check', event.id] });
+      queryClient.invalidateQueries({ queryKey: ["rsvp-check", event.id] });
     },
     onError: (error) => {
-      console.error('RSVP Error:', error);
-      toast.error('Failed to RSVP. Please try again.');
-    }
+      console.error("RSVP Error:", error);
+      toast.error("Failed to RSVP. Please try again.");
+    },
   });
 
   const eventDate = new Date(event.datetime);
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', {
-      timeZone: 'UTC',
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("en-US", {
+      timeZone: "UTC",
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', {
-      timeZone: 'UTC',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    }) + ' UTC';
+    return (
+      date.toLocaleTimeString("en-US", {
+        timeZone: "UTC",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      }) + " UTC"
+    );
   };
 
   const handleRsvp = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !email.trim()) {
-      toast.error('Please fill in all fields');
+      toast.error("Please fill in all fields");
       return;
     }
-    if (!email.includes('@')) {
-      toast.error('Please enter a valid email address');
+    if (!email.includes("@")) {
+      toast.error("Please enter a valid email address");
       return;
     }
     rsvpMutation.mutate();
   };
 
-  const meetLink = event.class?.meet_link || '#';
+  const meetLink = event.class?.meet_link || "#";
 
   return (
     <Card className="h-full bg-card/80 backdrop-blur border-0 shadow-md">
       <CardHeader>
-        <CardTitle className="text-lg leading-tight">{event.description}</CardTitle>
+        <CardTitle className="text-lg leading-tight">
+          {event.description}
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
@@ -255,9 +296,13 @@ function EventCard({ event }: { event: Event }) {
             <ExternalLink className="h-3 w-3 mr-1" />
             Google Meet
           </a>
-          
+
           {hasRsvped ? (
-            <Button disabled size="sm" className="bg-green-100 text-green-800 hover:bg-green-100">
+            <Button
+              disabled
+              size="sm"
+              className="bg-green-100 text-green-800 hover:bg-green-100"
+            >
               ✓ RSVP'd
             </Button>
           ) : (
@@ -272,7 +317,7 @@ function EventCard({ event }: { event: Event }) {
                     Reserve your spot for {event.description}
                   </DialogDescription>
                 </DialogHeader>
-                
+
                 <form onSubmit={handleRsvp} className="space-y-4">
                   <div className="bg-muted/50 p-3 rounded-lg text-sm">
                     <div className="flex items-center mb-1">
@@ -310,16 +355,16 @@ function EventCard({ event }: { event: Event }) {
                   </div>
 
                   <div className="flex gap-2 pt-2">
-                    <Button 
-                      type="button" 
-                      variant="outline" 
+                    <Button
+                      type="button"
+                      variant="outline"
                       onClick={() => setRsvpModalOpen(false)}
                       className="flex-1"
                     >
                       Cancel
                     </Button>
-                    <Button 
-                      type="submit" 
+                    <Button
+                      type="submit"
                       disabled={rsvpMutation.isPending}
                       className="flex-1"
                     >
@@ -329,7 +374,7 @@ function EventCard({ event }: { event: Event }) {
                           Confirming...
                         </>
                       ) : (
-                        'Confirm RSVP'
+                        "Confirm RSVP"
                       )}
                     </Button>
                   </div>

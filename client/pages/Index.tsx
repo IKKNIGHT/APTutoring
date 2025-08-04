@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import { Calendar, GraduationCap, Users, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Link } from "react-router-dom";
+import { Calendar, GraduationCap, Users, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Index() {
   return (
@@ -12,11 +12,23 @@ export default function Index() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold text-foreground">AP Tutoring Hub</span>
+              <span className="text-2xl font-bold text-foreground">
+                AP Tutoring Hub
+              </span>
             </div>
             <nav className="hidden md:flex items-center space-x-6">
-              <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-              <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors">Classes</Link>
+              <Link
+                to="/"
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                Home
+              </Link>
+              <Link
+                to="/dashboard"
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                Classes
+              </Link>
             </nav>
           </div>
         </div>
@@ -32,7 +44,9 @@ export default function Index() {
               <span className="text-primary">AP Classes</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Get expert tutoring support for all 40 AP subjects. Book personalized sessions with experienced tutors and boost your exam confidence.
+              Get expert tutoring support for all 40 AP subjects. Book
+              personalized sessions with experienced tutors and boost your exam
+              confidence.
             </p>
           </div>
 
@@ -43,7 +57,11 @@ export default function Index() {
                 View AP Tutoring Calendar
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="text-lg px-8 py-6 h-auto">
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-lg px-8 py-6 h-auto"
+            >
               Learn More
             </Button>
           </div>
@@ -65,7 +83,9 @@ export default function Index() {
                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Expert</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-2">
+                  Expert
+                </h3>
                 <p className="text-muted-foreground">Certified Tutors</p>
               </CardContent>
             </Card>
@@ -75,7 +95,9 @@ export default function Index() {
                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Clock className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="text-2xl font-bold text-foreground mb-2">Flexible</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-2">
+                  Flexible
+                </h3>
                 <p className="text-muted-foreground">Scheduling Options</p>
               </CardContent>
             </Card>
@@ -83,21 +105,29 @@ export default function Index() {
 
           {/* Features Section */}
           <div className="mt-20 space-y-12">
-            <h2 className="text-3xl font-bold text-center">Why Choose Our Tutoring?</h2>
+            <h2 className="text-3xl font-bold text-center">
+              Why Choose Our Tutoring?
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="text-left space-y-4">
                 <div className="bg-primary/10 w-10 h-10 rounded-lg flex items-center justify-center">
                   <Calendar className="h-5 w-5 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">Easy Scheduling</h3>
-                <p className="text-muted-foreground">Browse available sessions and book instantly with automated confirmations and Google Meet links.</p>
+                <p className="text-muted-foreground">
+                  Browse available sessions and book instantly with automated
+                  confirmations and Google Meet links.
+                </p>
               </div>
               <div className="text-left space-y-4">
                 <div className="bg-primary/10 w-10 h-10 rounded-lg flex items-center justify-center">
                   <GraduationCap className="h-5 w-5 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold">Subject Experts</h3>
-                <p className="text-muted-foreground">Our tutors specialize in specific AP subjects and understand the exam format inside and out.</p>
+                <p className="text-muted-foreground">
+                  Our tutors specialize in specific AP subjects and understand
+                  the exam format inside and out.
+                </p>
               </div>
             </div>
           </div>

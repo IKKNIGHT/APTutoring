@@ -1,20 +1,32 @@
-import { Link } from 'react-router-dom';
-import { GraduationCap, Calendar, Users, Loader2 } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useQuery } from '@tanstack/react-query';
-import { classesApi, eventsApi } from '@/lib/database';
-import { Class } from '@/lib/supabase';
+import { Link } from "react-router-dom";
+import { GraduationCap, Calendar, Users, Loader2 } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useQuery } from "@tanstack/react-query";
+import { classesApi, eventsApi } from "@/lib/database";
+import { Class } from "@/lib/supabase";
 
 export default function Dashboard() {
   // Fetch classes from Supabase
-  const { data: classes = [], isLoading, error } = useQuery({
-    queryKey: ['classes'],
-    queryFn: classesApi.getAll
+  const {
+    data: classes = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["classes"],
+    queryFn: classesApi.getAll,
   });
 
   // Get categories from the classes data
-  const categories = [...new Set(classes.map(cls => cls.category).filter(Boolean))];
+  const categories = [
+    ...new Set(classes.map((cls) => cls.category).filter(Boolean)),
+  ];
 
   if (isLoading) {
     return (
@@ -25,11 +37,20 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <Link to="/" className="flex items-center space-x-2">
                 <GraduationCap className="h-8 w-8 text-primary" />
-                <span className="text-2xl font-bold text-foreground">AP Tutoring Hub</span>
+                <span className="text-2xl font-bold text-foreground">
+                  AP Tutoring Hub
+                </span>
               </Link>
               <nav className="hidden md:flex items-center space-x-6">
-                <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-                <Link to="/dashboard" className="text-primary font-medium">Classes</Link>
+                <Link
+                  to="/"
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Home
+                </Link>
+                <Link to="/dashboard" className="text-primary font-medium">
+                  Classes
+                </Link>
               </nav>
             </div>
           </div>
@@ -55,11 +76,20 @@ export default function Dashboard() {
             <div className="flex items-center justify-between">
               <Link to="/" className="flex items-center space-x-2">
                 <GraduationCap className="h-8 w-8 text-primary" />
-                <span className="text-2xl font-bold text-foreground">AP Tutoring Hub</span>
+                <span className="text-2xl font-bold text-foreground">
+                  AP Tutoring Hub
+                </span>
               </Link>
               <nav className="hidden md:flex items-center space-x-6">
-                <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-                <Link to="/dashboard" className="text-primary font-medium">Classes</Link>
+                <Link
+                  to="/"
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  Home
+                </Link>
+                <Link to="/dashboard" className="text-primary font-medium">
+                  Classes
+                </Link>
               </nav>
             </div>
           </div>
@@ -68,18 +98,26 @@ export default function Dashboard() {
         <main className="container mx-auto px-4 py-8">
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
-              <CardTitle className="text-center text-destructive">Error Loading Classes</CardTitle>
+              <CardTitle className="text-center text-destructive">
+                Error Loading Classes
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-center space-y-4">
               <p className="text-muted-foreground">
-                Unable to load AP classes. Please check your Supabase configuration.
+                Unable to load AP classes. Please check your Supabase
+                configuration.
               </p>
               <div className="text-sm text-muted-foreground bg-muted p-4 rounded-lg">
                 <p className="font-medium">To set up Supabase:</p>
                 <ol className="list-decimal list-inside mt-2 space-y-1">
                   <li>Create a Supabase project</li>
-                  <li>Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables</li>
-                  <li>Run the database setup SQL in your Supabase SQL editor</li>
+                  <li>
+                    Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment
+                    variables
+                  </li>
+                  <li>
+                    Run the database setup SQL in your Supabase SQL editor
+                  </li>
                 </ol>
               </div>
             </CardContent>
@@ -97,11 +135,20 @@ export default function Dashboard() {
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center space-x-2">
               <GraduationCap className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold text-foreground">AP Tutoring Hub</span>
+              <span className="text-2xl font-bold text-foreground">
+                AP Tutoring Hub
+              </span>
             </Link>
             <nav className="hidden md:flex items-center space-x-6">
-              <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-              <Link to="/dashboard" className="text-primary font-medium">Classes</Link>
+              <Link
+                to="/"
+                className="text-foreground hover:text-primary transition-colors"
+              >
+                Home
+              </Link>
+              <Link to="/dashboard" className="text-primary font-medium">
+                Classes
+              </Link>
             </nav>
           </div>
         </div>
@@ -110,8 +157,13 @@ export default function Dashboard() {
       <main className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">AP Classes</h1>
-          <p className="text-xl text-muted-foreground">Choose from {classes.length} AP subjects and book your tutoring session</p>
+          <h1 className="text-4xl font-bold text-foreground mb-2">
+            AP Classes
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            Choose from {classes.length} AP subjects and book your tutoring
+            session
+          </p>
         </div>
 
         {/* Quick Stats */}
@@ -175,20 +227,24 @@ export default function Dashboard() {
 
 function ClassCard({ apClass }: { apClass: Class }) {
   // Fetch upcoming events for this class
-  const { data: events = [], isLoading, error } = useQuery({
-    queryKey: ['events', apClass.id],
+  const {
+    data: events = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["events", apClass.id],
     queryFn: () => eventsApi.getUpcomingByClassId(apClass.id),
-    retry: 1
+    retry: 1,
   });
 
   const nextEvent = events[0];
   const nextSession = nextEvent
-    ? new Date(nextEvent.datetime).toLocaleDateString('en-US', {
-        timeZone: 'UTC',
-        month: 'short',
-        day: 'numeric'
+    ? new Date(nextEvent.datetime).toLocaleDateString("en-US", {
+        timeZone: "UTC",
+        month: "short",
+        day: "numeric",
       })
-    : 'TBA';
+    : "TBA";
   const hasUpcomingSessions = events.length > 0;
 
   return (
@@ -208,12 +264,14 @@ function ClassCard({ apClass }: { apClass: Class }) {
             </div>
             <div className="text-right">
               <p className="text-sm font-medium text-primary">
-                {isLoading ? '...' : events.length}
+                {isLoading ? "..." : events.length}
               </p>
               <p className="text-xs text-muted-foreground">sessions</p>
             </div>
           </div>
-          <CardTitle className="text-lg leading-tight">{apClass.name}</CardTitle>
+          <CardTitle className="text-lg leading-tight">
+            {apClass.name}
+          </CardTitle>
         </CardHeader>
         <CardContent className="pt-0">
           <div className="space-y-2">
@@ -222,13 +280,29 @@ function ClassCard({ apClass }: { apClass: Class }) {
               Next: {nextSession}
             </div>
             <div className="flex items-center text-sm">
-              <div className={`w-2 h-2 rounded-full mr-2 ${
-                error ? 'bg-red-500' : hasUpcomingSessions ? 'bg-green-500' : 'bg-yellow-500'
-              }`}></div>
-              <span className={`font-medium ${
-                error ? 'text-red-600' : hasUpcomingSessions ? 'text-green-600' : 'text-yellow-600'
-              }`}>
-                {error ? 'Error Loading' : hasUpcomingSessions ? 'Available' : 'Coming Soon'}
+              <div
+                className={`w-2 h-2 rounded-full mr-2 ${
+                  error
+                    ? "bg-red-500"
+                    : hasUpcomingSessions
+                      ? "bg-green-500"
+                      : "bg-yellow-500"
+                }`}
+              ></div>
+              <span
+                className={`font-medium ${
+                  error
+                    ? "text-red-600"
+                    : hasUpcomingSessions
+                      ? "text-green-600"
+                      : "text-yellow-600"
+                }`}
+              >
+                {error
+                  ? "Error Loading"
+                  : hasUpcomingSessions
+                    ? "Available"
+                    : "Coming Soon"}
               </span>
             </div>
           </div>
