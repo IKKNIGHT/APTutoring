@@ -191,8 +191,6 @@ export const databaseSetup = {
       CREATE INDEX IF NOT EXISTS idx_rsvps_event_id ON rsvps(event_id);
       CREATE INDEX IF NOT EXISTS idx_rsvps_email ON rsvps(email);
     `;
-    
-    return createTablesSQL;
   },
 
   // Seed initial AP classes data
