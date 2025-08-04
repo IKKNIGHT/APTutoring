@@ -109,6 +109,9 @@ export default function Dashboard() {
       </header>
 
       <main className="container mx-auto px-4 py-8">
+        {/* Database Status (for debugging) */}
+        {process.env.NODE_ENV === 'development' && <DatabaseStatus />}
+
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">AP Classes</h1>
