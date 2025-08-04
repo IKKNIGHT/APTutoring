@@ -20,37 +20,33 @@ class EmailService {
         }),
       });
 
-      // Handle different response scenarios
-      let result: any;
-      
-      try {
-        // Try to parse JSON response
-        const responseText = await response.text();
-        if (responseText) {
-          result = JSON.parse(responseText);
-        } else {
-          result = { success: false, message: 'Empty response' };
-        }
-      } catch (parseError) {
-        console.error('Failed to parse response:', parseError);
-        return false;
-      }
+      // Clone the response to avoid body stream conflicts
+      const responseClone = response.clone();
 
       if (!response.ok) {
         console.error('Email API failed:', {
           status: response.status,
-          statusText: response.statusText,
-          result
+          statusText: response.statusText
         });
         return false;
       }
 
-      if (result && result.success) {
-        console.log('Email sent successfully:', result.emailId);
+      try {
+        // Use the cloned response to read the body
+        const result = await responseClone.json();
+        
+        if (result && result.success) {
+          console.log('Email sent successfully:', result.emailId);
+          return true;
+        } else {
+          console.error('Email sending failed:', result?.message || 'Unknown error');
+          return false;
+        }
+      } catch (parseError) {
+        console.error('Failed to parse email response:', parseError);
+        // If JSON parsing fails but response was OK, assume success
+        console.log('Email request completed (assuming success due to 200 status)');
         return true;
-      } else {
-        console.error('Email sending failed:', result?.message || 'Unknown error');
-        return false;
       }
     } catch (error) {
       console.error('Email service error:', error);
