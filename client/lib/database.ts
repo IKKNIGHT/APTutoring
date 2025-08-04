@@ -94,6 +94,7 @@ export const eventsApi = {
 export const rsvpsApi = {
   // Create new RSVP
   async create(eventId: number, name: string, email: string): Promise<RSVP> {
+    // First, create the RSVP
     const { data, error } = await supabase
       .from("rsvps")
       .insert({
@@ -105,6 +106,20 @@ export const rsvpsApi = {
       .single();
 
     if (error) throw error;
+
+    // Get the event details for email
+    const event = await eventsApi.getById(eventId);
+
+    // Send confirmation email
+    if (event) {
+      try {
+        await emailService.sendRSVPConfirmation(email, name, event);
+      } catch (emailError) {
+        console.error('Failed to send confirmation email:', emailError);
+        // Don't throw error - RSVP is still valid even if email fails
+      }
+    }
+
     return data;
   },
 
