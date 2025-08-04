@@ -20,19 +20,36 @@ class EmailService {
         }),
       });
 
-      // Read the response body only once
-      const result = await response.json();
-
-      if (!response.ok) {
-        console.error('Email API failed:', result);
+      // Handle different response scenarios
+      let result: any;
+      
+      try {
+        // Try to parse JSON response
+        const responseText = await response.text();
+        if (responseText) {
+          result = JSON.parse(responseText);
+        } else {
+          result = { success: false, message: 'Empty response' };
+        }
+      } catch (parseError) {
+        console.error('Failed to parse response:', parseError);
         return false;
       }
 
-      if (result.success) {
+      if (!response.ok) {
+        console.error('Email API failed:', {
+          status: response.status,
+          statusText: response.statusText,
+          result
+        });
+        return false;
+      }
+
+      if (result && result.success) {
         console.log('Email sent successfully:', result.emailId);
         return true;
       } else {
-        console.error('Email sending failed:', result.message);
+        console.error('Email sending failed:', result?.message || 'Unknown error');
         return false;
       }
     } catch (error) {
