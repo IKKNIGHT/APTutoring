@@ -43,7 +43,11 @@ export const eventsApi = {
       .eq('class_id', classId)
       .order('datetime');
 
-    if (error) throw error;
+    if (error) {
+      console.error('Error fetching all events for class', classId, ':', error);
+      console.error('Error details:', JSON.stringify(error, null, 2));
+      throw error;
+    }
     console.log('All events for class', classId, ':', data);
     return data || [];
   },
