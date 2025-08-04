@@ -20,13 +20,14 @@ class EmailService {
         }),
       });
 
+      // Read the response body only once
+      const result = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Email API failed:', errorData);
+        console.error('Email API failed:', result);
         return false;
       }
 
-      const result = await response.json();
       if (result.success) {
         console.log('Email sent successfully:', result.emailId);
         return true;
