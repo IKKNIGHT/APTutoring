@@ -178,7 +178,10 @@ function ClassCard({ apClass }: { apClass: Class }) {
   const { data: events = [], isLoading, error } = useQuery({
     queryKey: ['events', apClass.id],
     queryFn: () => eventsApi.getUpcomingByClassId(apClass.id),
-    retry: 1
+    retry: 1,
+    onError: (err) => {
+      console.error(`Failed to load events for class ${apClass.id} (${apClass.name}):`, err);
+    }
   });
 
   const nextEvent = events[0];
