@@ -180,6 +180,7 @@ function EventCard({ event }: { event: Event }) {
   const eventDate = new Date(event.datetime);
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
+      timeZone: 'UTC',
       weekday: 'long',
       year: 'numeric',
       month: 'long',
@@ -188,10 +189,11 @@ function EventCard({ event }: { event: Event }) {
   };
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {
+      timeZone: 'UTC',
       hour: 'numeric',
       minute: '2-digit',
       hour12: true
-    });
+    }) + ' UTC';
   };
 
   const handleRsvp = (e: React.FormEvent) => {
