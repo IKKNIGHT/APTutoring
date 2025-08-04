@@ -33,7 +33,6 @@ export const classesApi = {
 export const eventsApi = {
   // Get all events for a class
   async getByClassId(classId: number): Promise<Event[]> {
-    console.log('Fetching ALL events for class:', classId);
     const { data, error } = await supabase
       .from('events')
       .select(`
@@ -43,12 +42,7 @@ export const eventsApi = {
       .eq('class_id', classId)
       .order('datetime');
 
-    if (error) {
-      console.error('Error fetching all events for class', classId, ':', error);
-      console.error('Error details:', JSON.stringify(error, null, 2));
-      throw error;
-    }
-    console.log('All events for class', classId, ':', data);
+    if (error) throw error;
     return data || [];
   },
 
