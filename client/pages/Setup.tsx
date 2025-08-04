@@ -72,7 +72,7 @@ export default function Setup() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                First, make sure you have set up your Supabase environment variables:
+                First, make sure you have set up your Supabase environment variables for your "tutoring" project:
               </p>
               <div className="bg-muted p-4 rounded-lg font-mono text-sm">
                 <div>VITE_SUPABASE_URL=https://tutoring.supabase.co</div>
