@@ -166,6 +166,41 @@ export const rsvpsApi = {
   }
 };
 
+// Database health check
+export const databaseHealth = {
+  // Check if tables exist
+  async checkTables() {
+    try {
+      // Try to query the classes table
+      const { data: classData, error: classError } = await supabase
+        .from('classes')
+        .select('id')
+        .limit(1);
+
+      // Try to query the events table
+      const { data: eventData, error: eventError } = await supabase
+        .from('events')
+        .select('id')
+        .limit(1);
+
+      return {
+        classes: !classError,
+        events: !eventError,
+        classError,
+        eventError
+      };
+    } catch (error) {
+      console.error('Database health check failed:', error);
+      return {
+        classes: false,
+        events: false,
+        classError: error,
+        eventError: error
+      };
+    }
+  }
+};
+
 // Database initialization and seeding
 export const databaseSetup = {
   // Create the database schema
