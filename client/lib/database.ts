@@ -255,27 +255,27 @@ export const databaseSetup = {
     const sampleEvents = [
       {
         class_id: 1,
-        datetime: '2025-01-15T17:00:00',
+        datetime: '2025-01-15T17:00:00Z',
         description: 'Calculus AB Unit 1: Limits and Continuity Review'
       },
       {
         class_id: 1,
-        datetime: '2025-01-22T17:00:00',
+        datetime: '2025-01-22T17:00:00Z',
         description: 'Calculus AB Unit 2: Derivatives Practice'
       },
       {
         class_id: 4,
-        datetime: '2025-01-16T18:00:00',
+        datetime: '2025-01-16T18:00:00Z',
         description: 'Physics 1: Kinematics Problem Solving'
       },
       {
         class_id: 8,
-        datetime: '2025-01-17T19:00:00',
+        datetime: '2025-01-17T19:00:00Z',
         description: 'Chemistry: Stoichiometry and Chemical Equations'
       },
       {
         class_id: 15,
-        datetime: '2025-01-18T16:00:00',
+        datetime: '2025-01-18T16:00:00Z',
         description: 'US History: Constitutional Convention and Early Republic'
       }
     ];
@@ -284,7 +284,7 @@ export const databaseSetup = {
       .from('events')
       .upsert(sampleEvents)
       .select();
-    
+
     if (error) throw error;
     return data;
   }
