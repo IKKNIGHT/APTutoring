@@ -153,10 +153,10 @@ export const rsvpsApi = {
 // Database initialization and seeding
 export const databaseSetup = {
   // Create the database schema
-  async createTables() {
+  createTables() {
     // This would typically be done via Supabase SQL editor or migrations
     // Including here for reference of the schema structure
-    const createTablesSQL = `
+    return `
       -- Classes table
       CREATE TABLE IF NOT EXISTS classes (
         id SERIAL PRIMARY KEY,
