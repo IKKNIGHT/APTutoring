@@ -17,7 +17,6 @@ export default function Index() {
             <nav className="hidden md:flex items-center space-x-6">
               <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
               <Link to="/dashboard" className="text-foreground hover:text-primary transition-colors">Classes</Link>
-              <Link to="/setup" className="text-foreground hover:text-primary transition-colors">Setup</Link>
             </nav>
           </div>
         </div>
