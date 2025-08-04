@@ -23,12 +23,8 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
     // Validate request body
     const { toEmail, studentName, event } = emailRequestSchema.parse(req.body);
 
-    const resendApiKey =
-      process.env.RESEND_API_KEY || process.env.VITE_RESEND_API_KEY;
-    const fromEmail =
-      process.env.FROM_EMAIL ||
-      process.env.VITE_FROM_EMAIL ||
-      "noreply@resend.dev";
+    const resendApiKey = process.env.VITE_RESEND_API_KEY;
+    const fromEmail = process.env.VITE_FROM_EMAIL;
 
     if (!resendApiKey) {
       console.warn("Resend API key not configured");

@@ -219,7 +219,7 @@ function EventCard({ event }: { event: Event }) {
     mutationFn: () => rsvpsApi.create(event.id, name, email),
     onSuccess: () => {
       toast.success("RSVP confirmed! Your spot is reserved.", {
-        description: "Note: Email confirmations are currently in testing mode",
+        description: "Check your email for a confirmation.",
       });
       setRsvpModalOpen(false);
       setName("");
