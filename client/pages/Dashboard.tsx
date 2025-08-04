@@ -175,13 +175,20 @@ export default function Dashboard() {
 
 function ClassCard({ apClass }: { apClass: Class }) {
   // Fetch upcoming events for this class
-  const { data: events = [] } = useQuery({
+  const { data: events = [], isLoading, error } = useQuery({
     queryKey: ['events', apClass.id],
-    queryFn: () => eventsApi.getUpcomingByClassId(apClass.id)
+    queryFn: () => eventsApi.getUpcomingByClassId(apClass.id),
+    retry: 1
   });
 
   const nextEvent = events[0];
-  const nextSession = nextEvent ? new Date(nextEvent.datetime).toLocaleDateString() : 'TBA';
+  const nextSession = nextEvent
+    ? new Date(nextEvent.datetime).toLocaleDateString('en-US', {
+        timeZone: 'UTC',
+        month: 'short',
+        day: 'numeric'
+      })
+    : 'TBA';
   const hasUpcomingSessions = events.length > 0;
 
   return (
@@ -189,13 +196,20 @@ function ClassCard({ apClass }: { apClass: Class }) {
       <Card className="h-full hover:shadow-lg transition-all duration-200 hover:-translate-y-1 bg-card/80 backdrop-blur border-0 shadow-md">
         <CardHeader className="pb-3">
           <div className="flex justify-between items-start mb-2">
-            {apClass.category && (
-              <Badge variant="secondary" className="text-xs">
-                {apClass.category}
+            <div className="flex items-center gap-2">
+              {apClass.category && (
+                <Badge variant="secondary" className="text-xs">
+                  {apClass.category}
+                </Badge>
+              )}
+              <Badge variant="outline" className="text-xs">
+                ID: {apClass.id}
               </Badge>
-            )}
+            </div>
             <div className="text-right">
-              <p className="text-sm font-medium text-primary">{events.length}</p>
+              <p className="text-sm font-medium text-primary">
+                {isLoading ? '...' : events.length}
+              </p>
               <p className="text-xs text-muted-foreground">sessions</p>
             </div>
           </div>
@@ -208,9 +222,13 @@ function ClassCard({ apClass }: { apClass: Class }) {
               Next: {nextSession}
             </div>
             <div className="flex items-center text-sm">
-              <div className={`w-2 h-2 rounded-full mr-2 ${hasUpcomingSessions ? 'bg-green-500' : 'bg-yellow-500'}`}></div>
-              <span className={`font-medium ${hasUpcomingSessions ? 'text-green-600' : 'text-yellow-600'}`}>
-                {hasUpcomingSessions ? 'Available' : 'Scheduling Soon'}
+              <div className={`w-2 h-2 rounded-full mr-2 ${
+                error ? 'bg-red-500' : hasUpcomingSessions ? 'bg-green-500' : 'bg-yellow-500'
+              }`}></div>
+              <span className={`font-medium ${
+                error ? 'text-red-600' : hasUpcomingSessions ? 'text-green-600' : 'text-yellow-600'
+              }`}>
+                {error ? 'Error Loading' : hasUpcomingSessions ? 'Available' : 'Coming Soon'}
               </span>
             </div>
           </div>
