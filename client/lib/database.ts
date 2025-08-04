@@ -58,8 +58,11 @@ export const eventsApi = {
       .eq('class_id', classId)
       .gte('datetime', now)
       .order('datetime');
-    
-    if (error) throw error;
+
+    if (error) {
+      console.error('Error fetching events for class', classId, error);
+      throw error;
+    }
     return data || [];
   },
 
