@@ -239,13 +239,7 @@ function ClassCard({ apClass }: { apClass: Class }) {
   });
 
   const nextEvent = events[0];
-  const nextSession = nextEvent
-    ? new Date(nextEvent.datetime).toLocaleDateString("en-US", {
-        timeZone: "UTC",
-        month: "short",
-        day: "numeric",
-      })
-    : "TBA";
+  const nextSession = nextEvent ? formatCompactDate(nextEvent.datetime) : "TBA";
   const hasUpcomingSessions = events.length > 0;
 
   return (
