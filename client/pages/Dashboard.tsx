@@ -11,7 +11,11 @@ import { Badge } from "@/components/ui/badge";
 import { useQuery } from "@tanstack/react-query";
 import { classesApi, eventsApi } from "@/lib/database";
 import { Class } from "@/lib/supabase";
-import { formatCompactDate, getUserTimezone, getTimezoneAbbreviation } from "@/lib/timezone";
+import {
+  formatCompactDate,
+  getUserTimezone,
+  getTimezoneAbbreviation,
+} from "@/lib/timezone";
 
 export default function Dashboard() {
   // Fetch classes from Supabase
@@ -166,7 +170,8 @@ export default function Dashboard() {
             session
           </p>
           <p className="text-sm text-muted-foreground">
-            📍 Times shown in your timezone: {getUserTimezone()} ({getTimezoneAbbreviation()})
+            📍 Times shown in your timezone: {getUserTimezone()} (
+            {getTimezoneAbbreviation()})
           </p>
         </div>
 

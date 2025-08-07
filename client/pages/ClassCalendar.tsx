@@ -130,7 +130,8 @@ export default function ClassCalendar() {
             )}
           </div>
           <p className="text-xl text-muted-foreground">
-            Book your tutoring session and receive expert help (Times shown in your local timezone: {getTimezoneAbbreviation()})
+            Book your tutoring session and receive expert help (Times shown in
+            your local timezone: {getTimezoneAbbreviation()})
           </p>
         </div>
 
@@ -234,7 +235,11 @@ function EventCard({ event }: { event: Event }) {
     },
   });
 
-  const { date: formattedDate, time: formattedTime, timezone } = formatFullDateTime(event.datetime);
+  const {
+    date: formattedDate,
+    time: formattedTime,
+    timezone,
+  } = formatFullDateTime(event.datetime);
 
   const handleRsvp = (e: React.FormEvent) => {
     e.preventDefault();
@@ -266,7 +271,9 @@ function EventCard({ event }: { event: Event }) {
           </div>
           <div className="flex items-center text-sm">
             <Clock className="h-4 w-4 mr-2 text-primary" />
-            <span>{formattedTime} {timezone}</span>
+            <span>
+              {formattedTime} {timezone}
+            </span>
           </div>
         </div>
 
@@ -310,7 +317,9 @@ function EventCard({ event }: { event: Event }) {
                     </div>
                     <div className="flex items-center">
                       <Clock className="h-4 w-4 mr-2 text-primary" />
-                      <span>{formattedTime} {timezone}</span>
+                      <span>
+                        {formattedTime} {timezone}
+                      </span>
                     </div>
                   </div>
 
