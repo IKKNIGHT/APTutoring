@@ -85,6 +85,9 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
               <p><strong>Session:</strong> ${event.description}</p>
               <p><strong>Date:</strong> ${formattedDate}</p>
               <p><strong>Time:</strong> ${formattedTime}</p>
+              <p style="font-size: 12px; color: #666; margin-top: 8px;">
+                <em>Note: Times are shown in UTC. Please convert to your local timezone.</em>
+              </p>
             </div>
             
             <div style="text-align: center;">
