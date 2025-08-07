@@ -161,9 +161,12 @@ export default function Dashboard() {
           <h1 className="text-4xl font-bold text-foreground mb-2">
             AP Classes
           </h1>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground mb-2">
             Choose from {classes.length} AP subjects and book your tutoring
             session
+          </p>
+          <p className="text-sm text-muted-foreground">
+            📍 Times shown in your timezone: {getUserTimezone()} ({getTimezoneAbbreviation()})
           </p>
         </div>
 
