@@ -234,26 +234,7 @@ function EventCard({ event }: { event: Event }) {
     },
   });
 
-  const eventDate = new Date(event.datetime);
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("en-US", {
-      timeZone: "UTC",
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-  const formatTime = (date: Date) => {
-    return (
-      date.toLocaleTimeString("en-US", {
-        timeZone: "UTC",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      }) + " UTC"
-    );
-  };
+  const { date: formattedDate, time: formattedTime, timezone } = formatFullDateTime(event.datetime);
 
   const handleRsvp = (e: React.FormEvent) => {
     e.preventDefault();
