@@ -129,7 +129,7 @@ export default function ClassCalendar() {
             )}
           </div>
           <p className="text-xl text-muted-foreground">
-            Book your tutoring session and get expert help
+            Book your tutoring session and receive expert help (Reminder: The timezone is in UTC, not your local time zone.)
           </p>
         </div>
 
