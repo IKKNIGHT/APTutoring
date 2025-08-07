@@ -26,6 +26,7 @@ import { classesApi, eventsApi, rsvpsApi } from "@/lib/database";
 import { Event } from "@/lib/supabase";
 import { useState } from "react";
 import { toast } from "sonner";
+import { formatFullDateTime, getTimezoneAbbreviation } from "@/lib/timezone";
 
 export default function ClassCalendar() {
   const { classId } = useParams();
