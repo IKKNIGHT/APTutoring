@@ -306,11 +306,11 @@ function EventCard({ event }: { event: Event }) {
                   <div className="bg-muted/50 p-3 rounded-lg text-sm">
                     <div className="flex items-center mb-1">
                       <Calendar className="h-4 w-4 mr-2 text-primary" />
-                      <span>{formatDate(eventDate)}</span>
+                      <span>{formattedDate}</span>
                     </div>
                     <div className="flex items-center">
                       <Clock className="h-4 w-4 mr-2 text-primary" />
-                      <span>{formatTime(eventDate)}</span>
+                      <span>{formattedTime} {timezone}</span>
                     </div>
                   </div>
 
