@@ -18,6 +18,7 @@ class EmailService {
           toEmail,
           studentName,
           event,
+          userTimezone,
         }),
       });
 
