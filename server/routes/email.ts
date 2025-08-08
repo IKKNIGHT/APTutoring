@@ -5,6 +5,7 @@ import { z } from "zod";
 const emailRequestSchema = z.object({
   toEmail: z.string().email(),
   studentName: z.string().min(1),
+  userTimezone: z.string().optional(),
   event: z.object({
     id: z.number(),
     datetime: z.string(),
