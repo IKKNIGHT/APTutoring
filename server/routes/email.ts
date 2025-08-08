@@ -22,7 +22,7 @@ const emailRequestSchema = z.object({
 export const sendRSVPEmail: RequestHandler = async (req, res) => {
   try {
     // Validate request body
-    const { toEmail, studentName, event } = emailRequestSchema.parse(req.body);
+    const { toEmail, studentName, event, userTimezone } = emailRequestSchema.parse(req.body);
 
     const resendApiKey = process.env.VITE_RESEND_API_KEY;
     const fromEmail = process.env.VITE_FROM_EMAIL;
