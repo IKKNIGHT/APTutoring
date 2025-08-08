@@ -57,13 +57,6 @@ export default function Index() {
                 View AP Tutoring Calendar
               </Button>
             </Link>
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-lg px-8 py-6 h-auto"
-            >
-              Learn More
-            </Button>
           </div>
 
           {/* Stats Cards */}
