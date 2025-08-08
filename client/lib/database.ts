@@ -115,7 +115,12 @@ export const rsvpsApi = {
     if (event) {
       try {
         const userTimezone = getUserTimezone();
-        await emailService.sendRSVPConfirmation(email, name, event, userTimezone);
+        await emailService.sendRSVPConfirmation(
+          email,
+          name,
+          event,
+          userTimezone,
+        );
       } catch (emailError) {
         console.error("Failed to send confirmation email:", emailError);
         // Don't throw error - RSVP is still valid even if email fails
