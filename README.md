@@ -54,7 +54,7 @@ A modern, full-stack tutoring calendar application built with React, TypeScript,
 
 ## 🌐 Live Demo
 
-Visit the live application at: [Your Netlify URL]
+Visit the live application at: [[Tutoring](https://pearsontutoring.netlify.app/)]
 
 ## 📱 Usage
 
