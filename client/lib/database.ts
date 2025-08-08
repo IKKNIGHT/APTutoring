@@ -1,5 +1,6 @@
 import { supabase, Class, Event, RSVP } from "./supabase";
 import { emailService } from "./email";
+import { getUserTimezone } from "./timezone";
 
 // Classes API
 export const classesApi = {
