@@ -6,6 +6,7 @@ class EmailService {
     toEmail: string,
     studentName: string,
     event: Event,
+    userTimezone: string,
   ): Promise<boolean> {
     try {
       const response = await fetch("/api/send-rsvp-email", {
