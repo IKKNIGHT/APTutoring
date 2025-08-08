@@ -35,22 +35,32 @@ export const sendRSVPEmail: RequestHandler = async (req, res) => {
       });
     }
 
-    // Format date and time
+    // Format date and time in user's timezone
     const eventDate = new Date(event.datetime);
+    const timezoneToUse = userTimezone || "UTC";
+
     const formattedDate = eventDate.toLocaleDateString("en-US", {
-      timeZone: "UTC",
+      timeZone: timezoneToUse,
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric",
     });
-    const formattedTime =
-      eventDate.toLocaleTimeString("en-US", {
-        timeZone: "UTC",
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      }) + " UTC";
+
+    const formattedTime = eventDate.toLocaleTimeString("en-US", {
+      timeZone: timezoneToUse,
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    // Get timezone abbreviation for display
+    const timezoneDisplay = userTimezone
+      ? eventDate.toLocaleDateString("en-US", {
+          timeZone: userTimezone,
+          timeZoneName: "short",
+        }).split(", ")[1] || userTimezone.split("/").pop()
+      : "UTC";
 
     // Create email HTML
     const emailHtml = `
